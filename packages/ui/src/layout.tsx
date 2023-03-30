@@ -4,6 +4,7 @@ import MainNavigation from "./components/navigation";
 import TeamHeader from "./components/navigation/teamHeader";
 import { useAppDispatch } from "./hooks/redux";
 import { setLeagueId } from "./redux/slices/activeLeague";
+import PlayerHeader from "./components/navigation/playerHeader";
 
 interface Props {
   children: React.ReactNode;
@@ -28,6 +29,7 @@ const Layout = ({ children }: Props) => {
       <MainNavigation />
       <main>
         {router.pathname.includes("team") && <TeamHeader />}
+        {router.pathname.includes("player") && <PlayerHeader />}
         <div className="w-full h-full flex justify-center items-center py-10 px-4">
           {children}
         </div>
