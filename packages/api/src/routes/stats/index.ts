@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from "express";
 import asyncMiddleware from "../../middleware/async.middleware";
 import errorHandler from "../../expections/ErrorHandler";
 import {
-  getGameStatsValidation,
+  getGameLogValidation,
   getLeagueLeadersValidation,
   getTeamStatsValidation,
 } from "../../validation/stats";
@@ -14,7 +14,7 @@ const router: Router = Router();
 
 router.get(
   "/game-log/:leagueId/",
-  getGameStatsValidation(),
+  getGameLogValidation(),
   asyncMiddleware(gameLogController)
 );
 

@@ -92,5 +92,5 @@ const getGameLogValidation = () => {
 export {
   getLeagueLeadersValidation,
   getTeamStatsValidation,
-  getGameLogValidation as getGameStatsValidation,
+  getGameLogValidation,
 };
