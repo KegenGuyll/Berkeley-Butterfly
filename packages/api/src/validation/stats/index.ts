@@ -56,4 +56,41 @@ const getTeamStatsValidation = () => {
   ];
 };
 
-export { getLeagueLeadersValidation, getTeamStatsValidation };
+const getGameLogValidation = () => {
+  return [
+    param("leagueId").isNumeric().exists().toInt(),
+    query("seasonIndex")
+      .isNumeric()
+      .withMessage("seasonIndex must be a number.")
+      .toInt()
+      .exists()
+      .withMessage("seasonIndex is a required field."),
+    query("rosterId")
+      .isNumeric()
+      .withMessage("rosterId must be a number.")
+      .toInt()
+      .exists()
+      .withMessage("rosterId is a required field."),
+    query("teamId")
+      .isNumeric()
+      .withMessage("teamId must be a number.")
+      .toInt()
+      .exists()
+      .withMessage("teamId is a required field."),
+    query("dataType")
+      .isString()
+      .withMessage("dataType must be a string.")
+      .isIn(dataTypeList)
+      .withMessage(
+        `dataType can only be one of these items: ${dataTypeList.map(
+          (v) => v
+        )}.`
+      ),
+  ];
+};
+
+export {
+  getLeagueLeadersValidation,
+  getTeamStatsValidation,
+  getGameLogValidation as getGameStatsValidation,
+};
