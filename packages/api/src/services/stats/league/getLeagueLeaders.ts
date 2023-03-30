@@ -18,7 +18,6 @@ const getLeagueLeadersService = async (
 
   pipeline.push({
     $match: {
-      dataType,
       seasonIndex: query.seasonIndex,
       weekType: query.season_type || "reg",
       weekIndex: { $lt: 18 },
@@ -67,9 +66,11 @@ const getLeagueLeadersService = async (
     });
   }
 
-  pipeline.push({
-    $limit: 10,
-  });
+  if (query.limit) {
+    pipeline.push({
+      $limit: 10,
+    });
+  }
 
   const result = await db.aggregate(pipeline).toArray();
 
