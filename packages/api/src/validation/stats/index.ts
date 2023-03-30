@@ -89,8 +89,36 @@ const getGameLogValidation = () => {
   ];
 };
 
+const getRankedStatCategoryValidation = () => {
+  return [
+    param("leagueId").isNumeric().exists().toInt(),
+    query("seasonIndex")
+      .isNumeric()
+      .withMessage("seasonIndex must be a number.")
+      .toInt()
+      .exists()
+      .withMessage("seasonIndex is a required field."),
+    query("rosterId")
+      .isNumeric()
+      .withMessage("rosterId must be a number.")
+      .toInt()
+      .exists()
+      .withMessage("rosterId is a required field."),
+    param("dataType")
+      .isString()
+      .withMessage("dataType must be a string.")
+      .isIn(dataTypeList)
+      .withMessage(
+        `dataType can only be one of these items: ${dataTypeList.map(
+          (v) => v
+        )}.`
+      ),
+  ];
+};
+
 export {
   getLeagueLeadersValidation,
   getTeamStatsValidation,
   getGameLogValidation,
+  getRankedStatCategoryValidation,
 };

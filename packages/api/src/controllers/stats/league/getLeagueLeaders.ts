@@ -9,7 +9,7 @@ const getLeagueLeadersController = async (req: Request, res: Response) => {
     const player = await getLeagueLeadersService(
       Number(leagueId),
       dataType as DataType,
-      req.query as unknown as IGetTeamLeaders
+      { ...req.query, limit: true } as unknown as IGetTeamLeaders
     );
 
     res.send(player);

@@ -43,6 +43,7 @@ export type DataType =
 
 export interface IGetTeamLeaders {
   include_teams?: boolean;
+  limit?: boolean;
   seasonIndex: number;
   season_type?: "reg" | "pre";
   sort_by?: string;
@@ -50,6 +51,11 @@ export interface IGetTeamLeaders {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IGetTeamRoster {}
+
+export interface IRankedStatCategory {
+  rosterId: number;
+  seasonIndex: number;
+}
 
 export interface IGetTeamSchedule {
   include_team_stats?: boolean;
