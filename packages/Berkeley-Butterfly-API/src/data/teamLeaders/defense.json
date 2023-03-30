@@ -1,0 +1,47 @@
+{
+    "defCatchAllowed": {
+      "$sum": "$defCatchAllowed"
+    },
+    "defDeflections": {
+      "$sum": "$defDeflections"
+    },
+    "defForcedFum": {
+      "$sum": "$defForcedFum"
+    },
+    "defFumRec": {
+      "$sum": "$defFumRec"
+    },
+    "defInts": {
+      "$sum": "$defInts"
+    },
+    "defIntReturnYds": {
+      "$sum": "$defIntReturnYds"
+    },
+    "defPts": {
+      "$sum": "$defPts"
+    },
+    "defSacks": {
+      "$sum": "$defSacks"
+    },
+    "defSafeties": {
+      "$sum": "$defSafeties"
+    },
+    "defTDs": {
+      "$sum": "$defTDs"
+    },
+    "defTotalTackles": {
+      "$sum": "$defTotalTackles"
+    },
+    "gamesPlayed": {
+      "$count": {}
+    },
+    "fullName": {
+      "$first": "$fullName"
+    },
+    "dataType": {
+      "$first": "defense"
+    },
+    "scheduleId": {
+      "$first": "$scheduleId"
+    }
+  }

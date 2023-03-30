@@ -1,0 +1,35 @@
+{
+    "kickPts": {
+      "$sum": "$kickPts"
+    },
+    "fGAtt": {
+      "$sum": "$fGAtt"
+    },
+    "fG50PlusAtt": {
+      "$sum": "$fG50PlusAtt"
+    },
+    "fG50PlusMade": {
+      "$sum": "$fG50PlusMade"
+    },
+    "fGLongest": {
+      "$max": "$fGLongest"
+    },
+    "fGMade": {
+      "$sum": "$fGMade"
+    },
+    "fGCompPct": {
+      "$avg": "$fGCompPct"
+    },
+    "gamesPlayed": {
+      "$count": {}
+    },
+    "fullName": {
+      "$first": "$fullName"
+    },
+    "dataType": {
+      "$first": "kicking"
+    },
+    "scheduleId": {
+      "$first": "$scheduleId"
+    }
+  }
