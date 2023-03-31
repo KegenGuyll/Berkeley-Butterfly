@@ -1,20 +1,23 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
 import clsx from "clsx";
 import TeamImage from "../common/image/teamImage";
 import Button from "../common/button";
 import getPlayer from "@/endpoints/players/getPlayer";
-import { Player } from "@/models/players";
 import PlayerPortrait from "../common/image/playerPortrait";
 import InchesToFeet from "@/utils/inchesToFeet";
 import getRankedSeasonStats from "@/endpoints/stats/getRankedSeasonStats";
-import { RankedPlayerStats } from "@/models/stats";
 import { positionToDataType } from "@/utils/dataType";
 import ProfileSeasonStats from "../players/seasonStats/profileSeasonStats";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { setPlayer, setRankedSeasonStats } from "@/redux/slices/playerSlice";
 
 const PlayerHeader = () => {
-  const [player, setPlayer] = useState<Player>();
-  const [ranked, setRanked] = useState<RankedPlayerStats>();
+  const { player, rankedSeasonStats } = useAppSelector(
+    (state) => state.playerSlice
+  );
+
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const { rosterId, seasonIndex } = router.query;
 
@@ -35,11 +38,11 @@ const PlayerHeader = () => {
       );
 
       if (playerData.success) {
-        setPlayer(playerData.body);
+        dispatch(setPlayer(playerData.body));
       }
 
       if (rankedData.success) {
-        setRanked(rankedData.body);
+        dispatch(setRankedSeasonStats(rankedData.body));
       }
     }
   }, [router.query]);
@@ -134,7 +137,7 @@ const PlayerHeader = () => {
       </div>
       <ProfileSeasonStats
         seasonIndex={Number(seasonIndex)}
-        ranked={ranked}
+        ranked={rankedSeasonStats}
         dataType={positionToDataType(player.position)}
       />
     </div>
