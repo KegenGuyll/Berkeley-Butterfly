@@ -72,8 +72,6 @@ export const activeLeagueSlice = createSlice({
       state.players = playerRecord;
     },
     setPlayerStats: (state, action: PayloadAction<PlayerStats[]>) => {
-      console.log(action.payload);
-
       const statRecord: Stats = {};
 
       action.payload.forEach((playerStat) => {
@@ -81,8 +79,6 @@ export const activeLeagueSlice = createSlice({
           [playerStat]: { ...playerStat },
         };
       });
-
-      console.log(statRecord);
 
       state.stats = statRecord;
     },

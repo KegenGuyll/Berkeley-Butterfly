@@ -44,8 +44,6 @@ const PlayerHeader = () => {
     }
   }, [router.query]);
 
-  console.log(ranked);
-
   useEffect(() => {
     fetchPlayer();
   }, [fetchPlayer]);
