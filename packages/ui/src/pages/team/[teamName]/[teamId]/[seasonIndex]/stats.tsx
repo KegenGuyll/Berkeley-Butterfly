@@ -14,7 +14,7 @@ import getAvailableSeasons from "@/endpoints/schedule/getAvailableSeasons";
 import { IAvailableSeasonsResponse } from "@/models/schedule";
 import OffenseTable from "@/components/table/teamOffenseTable";
 import getTeamStats from "@/endpoints/team/getTeamStats";
-import { TeamStats } from "@/models/stats";
+import { DataType, TeamStats } from "@/models/stats";
 
 interface Props {
   availableSeasons: IAvailableSeasonsResponse;
@@ -134,18 +134,28 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const defense: IGetTeamLeaders[] = [];
     const specialTeam: IGetTeamLeaders[] = [];
 
-    const passing = getTeamLeaders(numberLeagueId, numberTeamId, "passing", {
-      sort_by: "passYds.desc",
-      seasonIndex: numberSeasonIndex,
-    });
-    const rushing = getTeamLeaders(numberLeagueId, numberTeamId, "rushing", {
-      sort_by: "rushAtt.desc",
-      seasonIndex: numberSeasonIndex,
-    });
+    const passing = getTeamLeaders(
+      numberLeagueId,
+      numberTeamId,
+      DataType.PASSING,
+      {
+        sort_by: "passYds.desc",
+        seasonIndex: numberSeasonIndex,
+      }
+    );
+    const rushing = getTeamLeaders(
+      numberLeagueId,
+      numberTeamId,
+      DataType.RUSHING,
+      {
+        sort_by: "rushAtt.desc",
+        seasonIndex: numberSeasonIndex,
+      }
+    );
     const receiving = getTeamLeaders(
       numberLeagueId,
       numberTeamId,
-      "receiving",
+      DataType.RECEIVING,
       {
         sort_by: "recYds.desc",
         seasonIndex: numberSeasonIndex,
@@ -154,7 +164,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const defenseRequest = getTeamLeaders(
       numberLeagueId,
       numberTeamId,
-      "defense",
+      DataType.DEFENSE,
       {
         sort_by: "defTotalTackles.desc",
         seasonIndex: numberSeasonIndex,
@@ -163,7 +173,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const kickingRequest = getTeamLeaders(
       numberLeagueId,
       numberTeamId,
-      "kicking",
+      DataType.KICKING,
       {
         sort_by: "defTotalTackles.desc",
         seasonIndex: numberSeasonIndex,
@@ -172,7 +182,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const puntingRequest = getTeamLeaders(
       numberLeagueId,
       numberTeamId,
-      "kicking",
+      DataType.PUNTING,
       {
         sort_by: "defTotalTackles.desc",
         seasonIndex: numberSeasonIndex,

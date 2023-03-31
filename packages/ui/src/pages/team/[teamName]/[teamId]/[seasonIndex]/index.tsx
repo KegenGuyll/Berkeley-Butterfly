@@ -34,6 +34,8 @@ const TeamLanding: NextPageWithLayout<Props> = ({
   const router = useRouter();
   const { teamId, seasonIndex } = router.query;
 
+  if (!team) return null;
+
   return (
     <div>
       <div className="flex space-x-10">
@@ -212,10 +214,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     console.error(error);
     return {
       props: {},
-      redirect: {
-        destination: "/league-code",
-        permanent: false,
-      },
+      // redirect: {
+      //   destination: "/league-code",
+      //   permanent: false,
+      // },
     };
   }
 };

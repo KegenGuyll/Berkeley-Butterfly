@@ -15,17 +15,11 @@ const TeamHeader = () => {
   const router = useRouter();
   const { teamId, seasonIndex } = router.query;
 
-  const baseUrl = useCallback(
-    (withSeason = true) => {
-      if (!team) return `/team/-/${teamId}/${seasonIndex}`;
+  const baseUrl = useCallback(() => {
+    if (!team) return `/team/-/${teamId}/${seasonIndex}`;
 
-      if (withSeason)
-        return `/team/${team.displayName}/${teamId}/${seasonIndex}`;
-
-      return `/team/${team.displayName}/${teamId}`;
-    },
-    [team, teamId, seasonIndex]
-  );
+    return `/team/${team.displayName}/${teamId}/${seasonIndex}`;
+  }, [team, teamId, seasonIndex]);
 
   const fetchTeam = useCallback(async () => {
     const leagueId = localStorage.getItem("leagueId");
@@ -85,7 +79,7 @@ const TeamHeader = () => {
             <Link href={`${baseUrl()}/stats`}>Stats</Link>
           </li>
           <li>
-            <Link href={`${baseUrl(false)}/roster`}>Roster</Link>
+            <Link href={`${baseUrl()}/roster`}>Roster</Link>
           </li>
         </ul>
       </div>

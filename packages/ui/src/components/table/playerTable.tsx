@@ -9,10 +9,11 @@ import DevTraitImage from "../common/image/devTraitImage";
 import convertToInternationalCurrencySystem from "@/utils/CurrencySystem";
 
 interface Props {
-  players: Player[]
+  players: Player[];
 }
 
 type DataRow = Player & {
+  seasonIndex: number;
   teamName: string;
 };
 
@@ -28,7 +29,7 @@ const PlayerName = ({ row }: CustomElementProps) => (
 
     <Link
       className="text-blue-500 hover:text-blue-600"
-      href={`/player/${row.teamName}/${row.teamId}/${row.rosterId}`}
+      href={`/player/${row.rosterId}/${row.seasonIndex}`}
     >
       {`${row.firstName} ${row.lastName}`}
     </Link>
@@ -111,12 +112,9 @@ const columns: TableColumn<DataRow>[] = [
 
 const playerTable = ({ players }: Props) => {
   const [data, setData] = useState<DataRow[]>([]);
-  const [reslovedPlayers, setResolvedPlayers] = useState<Player[]>([])
   const router = useRouter();
 
-  const { teamName } = router.query;
-
-  const handlePlayers = () => 
+  const { teamName, seasonIndex } = router.query;
 
   useEffect(() => {
     const newArray: DataRow[] = [];
@@ -125,6 +123,7 @@ const playerTable = ({ players }: Props) => {
       newArray.push({
         ...player,
         teamName: String(teamName),
+        seasonIndex: Number(seasonIndex),
       });
     });
 
