@@ -8,7 +8,7 @@ const getTeamRoster = async (
 ): Promise<IGetTeamRosterResponse> => {
   const url = `${API_ENDPOINT}/team/roster/${leagueId}/${teamId}/`;
 
-  const res = await fetch(createUrl(url), {next: { revalidate: 60} });
+  const res = await fetch(createUrl(url), { next: { revalidate: 60 } });
   const result = await res.json();
 
   return result;
