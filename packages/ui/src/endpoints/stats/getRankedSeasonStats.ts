@@ -9,9 +9,9 @@ import {
 const getRankedSeasonStats = async (
   leagueId: number | string,
   dataType: DataType,
-  query?: IRankedSeasonStatsQuery
+  query: IRankedSeasonStatsQuery
 ): Promise<IRankedSeasonStatsResponse> => {
-  const url = `${API_ENDPOINT}/ranked-stats/${leagueId}/${dataType}`;
+  const url = `${API_ENDPOINT}/stats/ranked-stats/${leagueId}/${dataType}`;
 
   const res = await fetch(createUrl(url, query));
   const result = await res.json();

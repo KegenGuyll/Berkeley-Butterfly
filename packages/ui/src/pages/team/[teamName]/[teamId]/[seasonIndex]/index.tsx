@@ -12,6 +12,7 @@ import DefenseList from "@/components/players/teamLeaderCard/defenseList";
 import getTeam from "@/endpoints/team/getTeam";
 import StandingsTable from "@/components/standings/standingsTable";
 import { NextPageWithLayout } from "@/pages/_app";
+import { DataType } from "@/models/stats";
 
 interface Props {
   defense: IGetTeamLeaders[];
@@ -31,7 +32,7 @@ const TeamLanding: NextPageWithLayout<Props> = ({
   team,
 }: Props) => {
   const router = useRouter();
-  const { teamId } = router.query;
+  const { teamId, seasonIndex } = router.query;
 
   return (
     <div>
@@ -80,9 +81,15 @@ const TeamLanding: NextPageWithLayout<Props> = ({
                   leadingPasser={leadingPasser}
                   leadingRec={leadingReceiver}
                   leadingRusher={leadingRusher}
+                  seasonIndex={Number(seasonIndex)}
                 />
               ),
-              "2": <DefenseList defense={defense} />,
+              "2": (
+                <DefenseList
+                  defense={defense}
+                  seasonIndex={Number(seasonIndex)}
+                />
+              ),
             }}
             footer={{
               href: `${router.asPath}/stats`,
@@ -101,10 +108,8 @@ export default TeamLanding;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const { leagueId, ...cookies } = nookies.get(context);
+    const { leagueId } = nookies.get(context);
     const { teamId, seasonIndex } = context.query;
-
-    console.log(cookies)
 
     if (!leagueId) throw new Error("unable to find leagueId");
 
@@ -120,7 +125,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const leadingPasserRequest = getTeamLeaders(
       numberLeagueId,
       numberTeamId,
-      "passing",
+      DataType.PASSING,
       {
         sort_by: "passYds.desc",
         seasonIndex: numberSeasonIndex,
@@ -129,7 +134,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const leadingRusherRequest = getTeamLeaders(
       numberLeagueId,
       numberTeamId,
-      "rushing",
+      DataType.RUSHING,
       {
         sort_by: "rushAtt.desc",
         seasonIndex: numberSeasonIndex,
@@ -138,7 +143,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const leadingReceiverRequest = getTeamLeaders(
       numberLeagueId,
       numberTeamId,
-      "receiving",
+      DataType.RECEIVING,
       {
         sort_by: "recYds.desc",
         seasonIndex: numberSeasonIndex,
@@ -148,7 +153,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const defenseRequest = getTeamLeaders(
       numberLeagueId,
       numberTeamId,
-      "defense",
+      DataType.DEFENSE,
       {
         sort_by: "defTotalTackles.desc",
         seasonIndex: numberSeasonIndex,

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
 /* eslint-disable no-use-before-define */
 import { Schedule } from "../schedule";
 
@@ -58,16 +60,18 @@ export type TeamStats = {
   weekType: string;
 };
 
-export type DataType =
-  | "rushing"
-  | "passing"
-  | "defense"
-  | "kicking"
-  | "punting"
-  | "receiving";
+export enum DataType {
+  DEFENSE = "defense",
+  KICKING = "kicking",
+  NONE = "none",
+  PASSING = "passing",
+  PUNTING = "punting",
+  RECEIVING = "receiving",
+  RUSHING = "rushing",
+}
 
 export type PassingStats = {
-  dataType: "passing";
+  dataType: DataType.PASSING;
   fullName: string;
   passAtt: number;
   passComp: number;
@@ -94,7 +98,7 @@ export type PassingStats = {
 };
 
 export type RushingStats = {
-  dataType: "rushing";
+  dataType: DataType.RUSHING;
   fullName: string;
   playerInfo: PlayerStats;
   rosterId: number;
@@ -121,7 +125,7 @@ export type RushingStats = {
 };
 
 export type DefenseStats = {
-  dataType: "defense";
+  dataType: DataType.DEFENSE;
   defCatchAllowed: number;
   defDeflections: number;
   defForcedFum: number;
@@ -147,7 +151,7 @@ export type DefenseStats = {
 };
 
 export type KickingStats = {
-  dataType: "kicking";
+  dataType: DataType.KICKING;
   fG50PlusAtt: number;
   fG50PlusMade: number;
   fGAtt: number;
@@ -174,7 +178,7 @@ export type KickingStats = {
 };
 
 export type PuntingStats = {
-  dataType: "punting";
+  dataType: DataType.PUNTING;
   fullName: string;
   playerInfo: PlayerStats;
   puntAtt: number;
@@ -198,7 +202,7 @@ export type PuntingStats = {
 };
 
 export type ReceivingStats = {
-  dataType: "receiving";
+  dataType: DataType.RECEIVING;
   fullName: string;
   playerInfo: PlayerStats;
   recCatchPct: number;
@@ -346,7 +350,7 @@ export type RankedPlayerStats =
   | RankedPassingStats
   | RankedPuntingStats
   | RankedReceivingStats
-  | RankedReceivingStats;
+  | RankedRushingStats;
 
 export interface IRankedSeasonStatsResponse {
   body: RankedPlayerStats;
@@ -357,3 +361,50 @@ export interface IRankedSeasonStatsQuery {
   rosterId: number;
   seasonIndex: number;
 }
+
+export type PositionOffense =
+  | "QB"
+  | "RB"
+  | "FB"
+  | "WR"
+  | "TE"
+  | "LT"
+  | "LG"
+  | "C"
+  | "RG"
+  | "RT";
+export type PositionDefense =
+  | "LE"
+  | "DT"
+  | "RE"
+  | "CB"
+  | "ROLB"
+  | "MLB"
+  | "LOLB"
+  | "SS"
+  | "FS";
+export type PositionSpecial = "K" | "P";
+
+export type Position =
+  | "QB"
+  | "RB"
+  | "HB"
+  | "FB"
+  | "WR"
+  | "TE"
+  | "LT"
+  | "LG"
+  | "C"
+  | "RG"
+  | "RT"
+  | "LE"
+  | "DT"
+  | "RE"
+  | "CB"
+  | "ROLB"
+  | "MLB"
+  | "LOLB"
+  | "SS"
+  | "FS"
+  | "K"
+  | "P";

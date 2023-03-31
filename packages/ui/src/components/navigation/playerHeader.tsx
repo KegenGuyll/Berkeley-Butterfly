@@ -7,25 +7,44 @@ import getPlayer from "@/endpoints/players/getPlayer";
 import { Player } from "@/models/players";
 import PlayerPortrait from "../common/image/playerPortrait";
 import InchesToFeet from "@/utils/inchesToFeet";
+import getRankedSeasonStats from "@/endpoints/stats/getRankedSeasonStats";
+import { RankedPlayerStats } from "@/models/stats";
+import { positionToDataType } from "@/utils/dataType";
+import ProfileSeasonStats from "../players/seasonStats/profileSeasonStats";
 
 const PlayerHeader = () => {
   const [player, setPlayer] = useState<Player>();
+  const [ranked, setRanked] = useState<RankedPlayerStats>();
   const router = useRouter();
-  const { rosterId } = router.query;
+  const { rosterId, seasonIndex } = router.query;
 
   const fetchPlayer = useCallback(async () => {
     const leagueId = localStorage.getItem("leagueId");
 
     if (leagueId && typeof rosterId === "string") {
-      const data = await getPlayer(Number(leagueId), Number(rosterId), {
+      const playerData = await getPlayer(Number(leagueId), Number(rosterId), {
         include_team: true,
       });
+      const rankedData = await getRankedSeasonStats(
+        Number(leagueId),
+        positionToDataType(playerData.body.position),
+        {
+          seasonIndex: Number(seasonIndex),
+          rosterId: Number(rosterId),
+        }
+      );
 
-      if (data.success) {
-        setPlayer(data.body);
+      if (playerData.success) {
+        setPlayer(playerData.body);
+      }
+
+      if (rankedData.success) {
+        setRanked(rankedData.body);
       }
     }
   }, [router.query]);
+
+  console.log(ranked);
 
   useEffect(() => {
     fetchPlayer();
@@ -108,42 +127,18 @@ const PlayerHeader = () => {
           <li className="flex items-center md:text-xs xl:text-sm">
             <span className="flex-grow font-light">DRAFT INFO</span>
             <span className="space-x-2 font-bold">
-              <span>{player.rookieYear}:</span>
+              <span>{player.rookieYear - Number(seasonIndex)}:</span>
               <span>Rd {player.draftRound},</span>
               <span>Pk {player.draftPick}</span>
             </span>
           </li>
         </ul>
       </div>
-      <div className="w-full flex lg:justify-center lg:items-center lg:px-3">
-        <div className="border rounded w-full lg:w-max h-max">
-          <div className="bg-slate-700 text-white rounded-t w-full px-3 py-1 text-center">
-            <h2>Current Year Stats</h2>
-          </div>
-          <ul className="p-3 flex items-center space-x-3 justify-evenly text-center text-sm">
-            <li className="flex flex-col">
-              <span className="font-light">YDS</span>
-              <span className="font-bold text-xl">4,208</span>
-              <span className="font-light">7th</span>
-            </li>
-            <li className="flex flex-col">
-              <span className="font-light">TD</span>
-              <span className="font-bold text-xl">35</span>
-              <span className="font-light">Tied-2nd</span>
-            </li>
-            <li className="flex flex-col">
-              <span className="font-light">INT</span>
-              <span className="font-bold text-xl">35</span>
-              <span className="font-light">Tied-2nd</span>
-            </li>
-            <li className="flex flex-col">
-              <span className="font-light">INT</span>
-              <span className="font-bold text-xl">35</span>
-              <span className="font-light">Tied-2nd</span>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <ProfileSeasonStats
+        seasonIndex={Number(seasonIndex)}
+        ranked={ranked}
+        dataType={positionToDataType(player.position)}
+      />
     </div>
   );
 };

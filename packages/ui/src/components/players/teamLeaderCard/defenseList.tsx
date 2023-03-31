@@ -4,6 +4,7 @@ import TeamLeaderCard from ".";
 
 interface Props {
   defense: IGetTeamLeaders[];
+  seasonIndex: number;
 }
 
 const sortDefense = (
@@ -20,7 +21,7 @@ const sortDefense = (
   return 0;
 };
 
-const DefenseList = ({ defense }: Props) => {
+const DefenseList = ({ defense, seasonIndex }: Props) => {
   const [leadingTackles, setLeadingTackles] = useState<IGetTeamLeaders>();
   const [leadingSacks, setLeadingSacks] = useState<IGetTeamLeaders>();
   const [leadingInt, setLeadingInt] = useState<IGetTeamLeaders>();
@@ -56,6 +57,7 @@ const DefenseList = ({ defense }: Props) => {
             },
           ]}
           player={leadingTackles}
+          seasonIndex={seasonIndex}
         />
       )}
       {leadingSacks && leadingSacks.dataType === "defense" && (
@@ -71,6 +73,7 @@ const DefenseList = ({ defense }: Props) => {
             },
           ]}
           player={leadingSacks}
+          seasonIndex={seasonIndex}
         />
       )}
       {leadingInt && leadingInt.dataType === "defense" && (
@@ -90,6 +93,7 @@ const DefenseList = ({ defense }: Props) => {
             },
           ]}
           player={leadingInt}
+          seasonIndex={seasonIndex}
         />
       )}
     </div>
