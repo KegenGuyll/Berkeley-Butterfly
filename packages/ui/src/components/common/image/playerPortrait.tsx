@@ -11,7 +11,7 @@ interface Props {
 const PlayerPortrait = ({ portraitId, playerName, rounded }: Props) => {
   return (
     <Image
-      className={clsx(rounded && "rounded-full")}
+      className={clsx(rounded && "rounded-full border")}
       alt={`${playerName} portrait`}
       fill
       objectFit="cover"
