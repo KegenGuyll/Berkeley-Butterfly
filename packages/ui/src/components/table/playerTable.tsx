@@ -29,7 +29,7 @@ const PlayerName = ({ row }: CustomElementProps) => (
 
     <Link
       className="text-blue-500 hover:text-blue-600"
-      href={`/player/${row.rosterId}/${row.seasonIndex}`}
+      href={`/player/${row.rosterId}/${row.teamId}/${row.seasonIndex}`}
     >
       {`${row.firstName} ${row.lastName}`}
     </Link>
