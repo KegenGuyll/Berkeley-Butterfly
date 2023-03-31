@@ -2,6 +2,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-use-before-define */
 import { Schedule } from "../schedule";
+import { Team } from "../team";
 
 export type TeamStats = {
   _id: string;
@@ -360,6 +361,28 @@ export interface IRankedSeasonStatsResponse {
 export interface IRankedSeasonStatsQuery {
   rosterId: number;
   seasonIndex: number;
+}
+
+export interface IGameLogQuery {
+  rosterId: number;
+  seasonIndex: number;
+  teamId: number;
+}
+
+export interface IGameLog extends Schedule {
+  awayTeam: Team;
+  defenseStats: DefenseStats[];
+  homeTeam: Team;
+  kickingStats: KickingStats[];
+  passingStats: PassingStats[];
+  puntingStats: PuntingStats[];
+  receivingStats: ReceivingStats[];
+  rushingStats: RushingStats[];
+}
+
+export interface IGameLogResponse {
+  body: IGameLog[];
+  success: boolean;
 }
 
 export type PositionOffense =

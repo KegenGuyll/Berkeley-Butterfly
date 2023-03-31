@@ -28,8 +28,8 @@ const Layout = ({ children }: Props) => {
     <>
       <MainNavigation />
       <main>
-        {router.pathname.includes("team") && <TeamHeader />}
-        {router.pathname.includes("player") && <PlayerHeader />}
+        {router.asPath.includes("team") && <TeamHeader />}
+        {router.asPath.includes("player") && <PlayerHeader />}
         <div className="w-full h-full flex justify-center items-center py-10 px-4">
           {children}
         </div>

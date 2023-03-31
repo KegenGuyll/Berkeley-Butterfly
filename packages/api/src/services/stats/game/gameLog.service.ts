@@ -53,6 +53,47 @@ const gameLogService = async (leagueId: number, query: IGameLogQuery) => {
     });
   });
 
+  pipeline.push({
+    $lookup: {
+      from: "teams",
+      localField: "homeTeamId",
+      pipeline: [
+        {
+          $match: {
+            leagueId,
+          },
+        },
+      ],
+      foreignField: "teamId",
+      as: "homeTeam",
+    },
+  });
+  pipeline.push({
+    $lookup: {
+      from: "teams",
+      localField: "awayTeamId",
+      pipeline: [
+        {
+          $match: {
+            leagueId,
+          },
+        },
+      ],
+      foreignField: "teamId",
+      as: "awayTeam",
+    },
+  });
+  pipeline.push({
+    $unwind: {
+      path: "$homeTeam",
+    },
+  });
+  pipeline.push({
+    $unwind: {
+      path: "$awayTeam",
+    },
+  });
+
   const result = await db.aggregate(pipeline).toArray();
 
   return { success: true, body: result };

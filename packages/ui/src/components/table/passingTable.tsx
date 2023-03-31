@@ -36,7 +36,7 @@ interface CustomTitleProps {
 const CustomTitle = ({ row }: CustomTitleProps) => (
   <Link
     className="text-blue-500 hover:text-blue-600"
-    href={`/player/${row.teamName}/${row.teamId}/${row.rosterId}`}
+    href={`/player/${row.rosterId}/${row.teamId}/${row.seasonIndex}`}
   >
     {row.name}
   </Link>

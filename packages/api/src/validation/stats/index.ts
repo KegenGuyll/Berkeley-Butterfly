@@ -77,15 +77,6 @@ const getGameLogValidation = () => {
       .toInt()
       .exists()
       .withMessage("teamId is a required field."),
-    query("dataType")
-      .isString()
-      .withMessage("dataType must be a string.")
-      .isIn(dataTypeList)
-      .withMessage(
-        `dataType can only be one of these items: ${dataTypeList.map(
-          (v) => v
-        )}.`
-      ),
   ];
 };
 

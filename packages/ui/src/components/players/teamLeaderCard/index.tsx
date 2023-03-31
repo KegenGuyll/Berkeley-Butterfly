@@ -37,7 +37,7 @@ const TeamLeaderCard = ({
           </div>
           <div className="flex flex-col space-y-2">
             <Link
-              href={`/player/${player._id.rosterId}/${seasonIndex}`}
+              href={`/player/${player._id.rosterId}/${player._id.teamId}/${seasonIndex}`}
               className="flex items-center"
             >
               <p className="text-sm">{player.fullName}</p>
