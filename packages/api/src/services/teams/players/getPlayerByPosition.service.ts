@@ -10,12 +10,40 @@ const getPlayerByPositionService = async (
 ) => {
   const db = mongoService.db(dbName).collection("players");
 
+  const positionFind: any[] = [{ position }];
+
+  if (position === "OL") {
+    positionFind.push({ position: "LT" });
+    positionFind.push({ position: "RT" });
+    positionFind.push({ position: "LG" });
+    positionFind.push({ position: "RG" });
+    positionFind.push({ position: "C" });
+  }
+
+  if (position === "DL") {
+    positionFind.push({ position: "LE" });
+    positionFind.push({ position: "RE" });
+    positionFind.push({ position: "DT" });
+  }
+
+  if (position === "DB") {
+    positionFind.push({ position: "CB" });
+    positionFind.push({ position: "FS" });
+    positionFind.push({ position: "SS" });
+  }
+
+  if (position === "LB") {
+    positionFind.push({ position: "LOLB" });
+    positionFind.push({ position: "ROLB" });
+    positionFind.push({ position: "MLB" });
+  }
+
   const pipeline: Document[] = [
     {
       $match: {
         leagueId,
         teamId,
-        position,
+        $or: positionFind,
       },
     },
     {
