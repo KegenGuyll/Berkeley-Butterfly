@@ -36,7 +36,7 @@ const BaseCard = ({
           <h3>{header}</h3>
         </header>
       )}
-      <div className={clsx(contentPadding && "px-3 pt-2")}>{children}</div>
+      <div className={clsx(contentPadding && "px-3 py-2")}>{children}</div>
       {!!footer && (
         <footer className="py-2 mx-2 text-center flex items-center justify-center mt-2">
           <Link
