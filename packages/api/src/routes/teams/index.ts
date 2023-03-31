@@ -14,8 +14,16 @@ import getTeamScheduleController from "../../controllers/teams/schedule/getTeamS
 import getTeamPerGameStatsController from "../../controllers/stats/team/getTeamPerGameStatsService";
 import getTeamsController from "../../controllers/teams/getTeams.controller";
 import getTeamRosterController from "../../controllers/teams/players/getTeamRoster.controller";
+import { getPlayerByPositionValidation } from "../../validation/players";
+import getPlayerByPositionController from "../../controllers/teams/players/getPlayerByPosition.controller";
 
 const router: Router = Router();
+
+router.get(
+  "/players/:leagueId/:teamId/:position",
+  getPlayerByPositionValidation(),
+  asyncMiddleware(getPlayerByPositionController)
+);
 
 router.get(
   "/roster/:leagueId/:teamId",

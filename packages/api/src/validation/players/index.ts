@@ -17,5 +17,16 @@ const getPlayerValidation = () => {
   ];
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export { getPlayerValidation };
+const getPlayerByPositionValidation = () => {
+  return [
+    param("leagueId").isNumeric().exists().toInt(),
+    param("teamId").isNumeric().exists().toInt(),
+    param("position").isString().exists(),
+    query("include_teams")
+      .isBoolean()
+      .withMessage("include_teams must be a boolean.")
+      .toBoolean()
+      .optional(),
+  ];
+};
+export { getPlayerValidation, getPlayerByPositionValidation };
