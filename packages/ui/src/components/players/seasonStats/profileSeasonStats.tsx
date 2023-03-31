@@ -4,7 +4,7 @@ import { dataTypeToRankedStats } from "@/utils/dataType";
 
 interface Props {
   dataType: DataType;
-  ranked: RankedPlayerStats | undefined;
+  ranked: RankedPlayerStats | null;
   seasonIndex: number;
 }
 

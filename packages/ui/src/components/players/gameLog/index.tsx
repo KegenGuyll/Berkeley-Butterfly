@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import TabCard, { Category } from "@/components/common/card/tabCard";
 import DetermineTable from "@/components/table/recentGame/determineTable";
 import { DataType, IGameLog } from "@/models/stats";
+import BaseCard from "@/components/common/card/baseCard";
 
 interface Props {
   gameLog: IGameLog[];
@@ -100,13 +101,23 @@ const GameLogComponent = ({ gameLog }: Props) => {
       }
     });
 
-    result[0].active = true;
+    if (result.length) {
+      result[0].active = true;
+    }
 
     return {
       categories: result,
       content,
     };
   }, [gameLog]);
+
+  if (!data.categories.length) {
+    return (
+      <BaseCard header={`${2022 + gameLog[0].seasonIndex} Games`}>
+        <span className="pb-5">No Game Data</span>
+      </BaseCard>
+    );
+  }
 
   return (
     <TabCard

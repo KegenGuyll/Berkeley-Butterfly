@@ -6,11 +6,9 @@ import { Team } from "@/models/team";
 import { AvailableSeason, Schedule } from "@/models/schedule";
 import { Player } from "@/models/players";
 import {
-  DataType,
   DefenseStats,
   KickingStats,
   PassingStats,
-  PlayerStats,
   PuntingStats,
   ReceivingStats,
   RushingStats,
@@ -71,17 +69,6 @@ export const activeLeagueSlice = createSlice({
 
       state.players = playerRecord;
     },
-    setPlayerStats: (state, action: PayloadAction<PlayerStats[]>) => {
-      const statRecord: Stats = {};
-
-      action.payload.forEach((playerStat) => {
-        statRecord[playerStat.dataType] = {
-          [playerStat]: { ...playerStat },
-        };
-      });
-
-      state.stats = statRecord;
-    },
     setTeams: (state, action: PayloadAction<Team[]>) => {
       const teamRecord: Record<number, Team> = {};
 
@@ -103,7 +90,6 @@ export const {
   setAvailableSeasons,
   setCurrentSeasonIndex,
   setPlayers,
-  setPlayerStats,
 } = activeLeagueSlice.actions;
 
 export const leagueId = (state: RootState) => state.activeLeague.leagueId;

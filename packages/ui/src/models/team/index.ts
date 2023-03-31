@@ -97,3 +97,16 @@ export interface IGetTeamStatsQuery {
   seasonIndex: number;
   season_type: "reg" | "pre";
 }
+
+export interface IGetPlayerByPositionQuery {
+  include_teams?: boolean;
+}
+
+export interface IGetPlayerByPosition extends Player {
+  team?: Team;
+}
+
+export interface IGetPlayerByPositionResponse {
+  body: IGetPlayerByPosition[];
+  success: boolean;
+}

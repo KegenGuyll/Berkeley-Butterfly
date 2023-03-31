@@ -68,3 +68,7 @@ export interface IGetTeamStatsQuery {
   seasonIndex: number;
   season_type: "reg" | "pre";
 }
+
+export interface IGetPlayerByPositionQuery {
+  include_teams?: boolean;
+}
