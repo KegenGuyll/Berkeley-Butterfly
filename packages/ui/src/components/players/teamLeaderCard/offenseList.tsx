@@ -6,9 +6,15 @@ interface Props {
   leadingPasser: IGetTeamLeaders | undefined;
   leadingRec: IGetTeamLeaders | undefined;
   leadingRusher: IGetTeamLeaders | undefined;
+  seasonIndex: number;
 }
 
-const OffenseList = ({ leadingPasser, leadingRec, leadingRusher }: Props) => {
+const OffenseList = ({
+  leadingPasser,
+  leadingRec,
+  leadingRusher,
+  seasonIndex,
+}: Props) => {
   return (
     <div>
       {leadingPasser && leadingPasser.dataType === "passing" && (
@@ -28,6 +34,7 @@ const OffenseList = ({ leadingPasser, leadingRec, leadingRusher }: Props) => {
             },
           ]}
           player={leadingPasser}
+          seasonIndex={seasonIndex}
         />
       )}
       {leadingRusher && leadingRusher.dataType === "rushing" && (
@@ -47,6 +54,7 @@ const OffenseList = ({ leadingPasser, leadingRec, leadingRusher }: Props) => {
             },
           ]}
           player={leadingRusher}
+          seasonIndex={seasonIndex}
         />
       )}
       {leadingRec && leadingRec.dataType === "receiving" && (
@@ -66,6 +74,7 @@ const OffenseList = ({ leadingPasser, leadingRec, leadingRusher }: Props) => {
             },
           ]}
           player={leadingRec}
+          seasonIndex={seasonIndex}
         />
       )}
     </div>

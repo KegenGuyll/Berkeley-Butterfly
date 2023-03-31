@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
 /* eslint-disable no-use-before-define */
 import { Schedule } from "../schedule";
 
@@ -58,16 +60,18 @@ export type TeamStats = {
   weekType: string;
 };
 
-export type DataType =
-  | "rushing"
-  | "passing"
-  | "defense"
-  | "kicking"
-  | "punting"
-  | "receiving";
+export enum DataType {
+  DEFENSE = "defense",
+  KICKING = "kicking",
+  NONE = "none",
+  PASSING = "passing",
+  PUNTING = "punting",
+  RECEIVING = "receiving",
+  RUSHING = "rushing",
+}
 
 export type PassingStats = {
-  dataType: "passing";
+  dataType: DataType.PASSING;
   fullName: string;
   passAtt: number;
   passComp: number;
@@ -94,7 +98,7 @@ export type PassingStats = {
 };
 
 export type RushingStats = {
-  dataType: "rushing";
+  dataType: DataType.RUSHING;
   fullName: string;
   playerInfo: PlayerStats;
   rosterId: number;
@@ -121,7 +125,7 @@ export type RushingStats = {
 };
 
 export type DefenseStats = {
-  dataType: "defense";
+  dataType: DataType.DEFENSE;
   defCatchAllowed: number;
   defDeflections: number;
   defForcedFum: number;
@@ -147,7 +151,7 @@ export type DefenseStats = {
 };
 
 export type KickingStats = {
-  dataType: "kicking";
+  dataType: DataType.KICKING;
   fG50PlusAtt: number;
   fG50PlusMade: number;
   fGAtt: number;
@@ -174,7 +178,7 @@ export type KickingStats = {
 };
 
 export type PuntingStats = {
-  dataType: "punting";
+  dataType: DataType.PUNTING;
   fullName: string;
   playerInfo: PlayerStats;
   puntAtt: number;
@@ -198,7 +202,7 @@ export type PuntingStats = {
 };
 
 export type ReceivingStats = {
-  dataType: "receiving";
+  dataType: DataType.RECEIVING;
   fullName: string;
   playerInfo: PlayerStats;
   recCatchPct: number;
@@ -248,3 +252,159 @@ export interface preGameStatsResponse {
   body: preGameStats;
   success: boolean;
 }
+
+type RankedPassing = {
+  passAttPos: number;
+  passCompPos: number;
+  passIntsPos: number;
+  passLongestPos: number;
+  passSacksPos: number;
+  passTDsPos: number;
+  passYdsPerAttPos: number;
+  passYdsPerGamePos: number;
+  passYdsPos: number;
+  passerRatingPos: number;
+};
+type RankedRushing = {
+  rush20PlusYdsPos: number;
+  rushAttPos: number;
+  rushBrokenTacklesPos: number;
+  rushFumPos: number;
+  rushLongestPos: number;
+  rushTDsPos: number;
+  rushYdsAfterContactPos: number;
+  rushYdsPerAttPos: number;
+  rushYdsPerGamePos: number;
+  rushYdsPos: number;
+};
+type RankedReceiving = {
+  recCatchPctPos: number;
+  recCatchesPos: number;
+  recDropsPos: number;
+  recLongestPos: number;
+  recTDsPos: number;
+  recYacPerCatchPos: number;
+  recYdsAfterCatchPos: number;
+  recYdsPerCatchPos: number;
+  recYdsPerGamePos: number;
+  recYdsPos: number;
+};
+type RankedDefense = {
+  defCatchAllowedPos: number;
+  defDeflectionsPos: number;
+  defForcedFumPos: number;
+  defFumRecPos: number;
+  defIntReturnYdsPos: number;
+  defIntsPos: number;
+  defSacksPos: number;
+  defSafetiesPos: number;
+  defTDsPos: number;
+  defTotalTacklesPos: number;
+};
+type RankedKicking = {
+  fG50PlusAttPos: number;
+  fG50PlusMadePos: number;
+  fGLongestPos: number;
+  fGMadePos: number;
+  kickPtsPos: number;
+};
+type RankedPunting = {
+  puntAttPos: number;
+  puntLongestPos: number;
+  puntNetYdsPerAttPos: number;
+  puntNetYdsPos: number;
+  puntTBsPos: number;
+  puntYdsPerAttPos: number;
+  puntYdsPos: number;
+  puntsBlockedPos: number;
+  puntsIn20Pos: number;
+};
+
+export interface RankedPassingStats extends PassingStats {
+  ranking: RankedPassing;
+}
+
+export interface RankedRushingStats extends RushingStats {
+  ranking: RankedRushing;
+}
+
+export interface RankedReceivingStats extends ReceivingStats {
+  ranking: RankedReceiving;
+}
+
+export interface RankedDefenseStats extends DefenseStats {
+  ranking: RankedDefense;
+}
+
+export interface RankedKickingStats extends KickingStats {
+  ranking: RankedKicking;
+}
+
+export interface RankedPuntingStats extends PuntingStats {
+  ranking: RankedPunting;
+}
+
+export type RankedPlayerStats =
+  | RankedDefenseStats
+  | RankedKickingStats
+  | RankedPassingStats
+  | RankedPuntingStats
+  | RankedReceivingStats
+  | RankedRushingStats;
+
+export interface IRankedSeasonStatsResponse {
+  body: RankedPlayerStats;
+  success: boolean;
+}
+
+export interface IRankedSeasonStatsQuery {
+  rosterId: number;
+  seasonIndex: number;
+}
+
+export type PositionOffense =
+  | "QB"
+  | "RB"
+  | "FB"
+  | "WR"
+  | "TE"
+  | "LT"
+  | "LG"
+  | "C"
+  | "RG"
+  | "RT";
+export type PositionDefense =
+  | "LE"
+  | "DT"
+  | "RE"
+  | "CB"
+  | "ROLB"
+  | "MLB"
+  | "LOLB"
+  | "SS"
+  | "FS";
+export type PositionSpecial = "K" | "P";
+
+export type Position =
+  | "QB"
+  | "RB"
+  | "HB"
+  | "FB"
+  | "WR"
+  | "TE"
+  | "LT"
+  | "LG"
+  | "C"
+  | "RG"
+  | "RT"
+  | "LE"
+  | "DT"
+  | "RE"
+  | "CB"
+  | "ROLB"
+  | "MLB"
+  | "LOLB"
+  | "SS"
+  | "FS"
+  | "K"
+  | "P";

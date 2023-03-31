@@ -1,4 +1,4 @@
-import { PlayerStats } from "../stats";
+import { PlayerStats, Position } from "../stats";
 import { Team } from "../team";
 
 export type Player = {
@@ -85,7 +85,7 @@ export type Player = {
   playerSchemeOvr: number;
   portraitId: number;
   posCatchTrait: number;
-  position: string;
+  position: Position;
   powerMovesRating: number;
   predictTrait: number;
   presentationId: number;

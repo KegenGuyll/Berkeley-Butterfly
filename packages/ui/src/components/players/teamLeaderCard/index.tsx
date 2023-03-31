@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { IGetTeamLeaders } from "@/models/team";
 import PlayerPortrait from "@/components/common/image/playerPortrait";
 
@@ -14,9 +15,15 @@ interface Props {
   };
   keyStats: KeyStats[];
   player: IGetTeamLeaders;
+  seasonIndex: number;
 }
 
-const TeamLeaderCard = ({ player, highlightedStat, keyStats }: Props) => {
+const TeamLeaderCard = ({
+  player,
+  highlightedStat,
+  keyStats,
+  seasonIndex,
+}: Props) => {
   return (
     <div className=" h-max p-4 rounded">
       <h2 className="text-sm pb-1 text-gray-500">{highlightedStat.title}</h2>
@@ -29,12 +36,15 @@ const TeamLeaderCard = ({ player, highlightedStat, keyStats }: Props) => {
             />
           </div>
           <div className="flex flex-col space-y-2">
-            <div className="flex items-center">
+            <Link
+              href={`/player/${player._id.rosterId}/${seasonIndex}`}
+              className="flex items-center"
+            >
               <p className="text-sm">{player.fullName}</p>
               <span className="ml-1 text-gray-500 text-sm">
                 {player.playerInfo.position} #{player.playerInfo.jerseyNum}
               </span>
-            </div>
+            </Link>
             <p className="text-2xl">
               {new Intl.NumberFormat("en-US").format(highlightedStat.value)}
             </p>
