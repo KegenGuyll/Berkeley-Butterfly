@@ -31,7 +31,7 @@ const BaseCard = ({
       )}
       {...props}
     >
-      {!header && (
+      {!!header && (
         <header className="flex items-center font-extrabold text-xs text-start py-2 mx-2">
           <h3>{header}</h3>
         </header>
