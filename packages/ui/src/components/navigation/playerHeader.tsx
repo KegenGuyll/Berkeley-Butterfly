@@ -125,7 +125,7 @@ const PlayerHeader = () => {
           <li className="flex items-center md:text-xs xl:text-sm">
             <span className="flex-grow font-light">DRAFT INFO</span>
             <span className="space-x-2 font-bold">
-              <span>{player.rookieYear - Number(seasonIndex) + 1}:</span>
+              <span>{player.rookieYear - Number(seasonIndex)}:</span>
               <span>Rd {player.draftRound - 1},</span>
               <span>Pk {player.draftPick - 1}</span>
             </span>
