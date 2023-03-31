@@ -4,12 +4,11 @@ import {
   IGetPlayerByPositionQuery,
   IGetPlayerByPositionResponse,
 } from "@/models/team";
-import { Position } from "@/models/stats";
 
 const getPlayerByPosition = async (
   leagueId: number,
   teamId: number,
-  position: Position,
+  position: string,
   query?: IGetPlayerByPositionQuery
 ): Promise<IGetPlayerByPositionResponse> => {
   const url = `${API_ENDPOINT}/team/players/${leagueId}/${teamId}/${position}`;

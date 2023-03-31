@@ -430,4 +430,8 @@ export type Position =
   | "SS"
   | "FS"
   | "K"
-  | "P";
+  | "P"
+  | "OL"
+  | "DL"
+  | "DB"
+  | "LB";

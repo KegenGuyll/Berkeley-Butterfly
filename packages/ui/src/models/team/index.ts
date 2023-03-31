@@ -107,6 +107,6 @@ export interface IGetPlayerByPosition extends Player {
 }
 
 export interface IGetPlayerByPositionResponse {
-  body: IGetPlayerByPosition;
+  body: IGetPlayerByPosition[];
   success: boolean;
 }
