@@ -13,10 +13,10 @@ interface Props {
 const PlayerProfile: NextPage<Props> = ({ gameLog }: Props) => {
   return (
     <div className="w-full h-full grid grid-cols-6 gap-3">
-      <div>
+      <div className="col-span-6 md:col-span-2 lg:col-span-2 xl:col-span-1">
         <SwitchPlayers />
       </div>
-      <div className="col-span-6 lg:col-span-4">
+      <div className="col-span-6 md:col-span-4 lg:col-span-4">
         <GameLogComponent gameLog={gameLog} />
       </div>
       <div className="bg-gray-700">
