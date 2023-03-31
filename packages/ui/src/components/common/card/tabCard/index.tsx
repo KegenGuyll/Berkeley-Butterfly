@@ -3,13 +3,13 @@ import React, { memo, useEffect, useState } from "react";
 import clsx from "clsx";
 import BaseCard, { BaseCardProps } from "../baseCard";
 
-type Category = {
+export type Category = {
   active: boolean;
   id: string;
   name: string;
 };
 
-type Content = Record<string, React.ReactNode>;
+export type Content = Record<string, React.ReactNode>;
 
 interface Props extends BaseCardProps {
   categories: Category[];
