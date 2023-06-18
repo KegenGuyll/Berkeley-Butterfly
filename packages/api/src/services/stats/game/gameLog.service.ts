@@ -20,7 +20,7 @@ const gameLogService = async (leagueId: number, query: IGameLogQuery) => {
     {
       $match: {
         leagueId,
-        seasonIndex: 6,
+        seasonIndex: query.seasonIndex,
         $or: [
           {
             homeTeamId: query.teamId,
@@ -43,7 +43,7 @@ const gameLogService = async (leagueId: number, query: IGameLogQuery) => {
             $match: {
               rosterId: query.rosterId,
               leagueId,
-              seasonIndex: 6,
+              seasonIndex: query.seasonIndex,
             },
           },
         ],
