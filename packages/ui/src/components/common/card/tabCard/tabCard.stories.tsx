@@ -37,7 +37,11 @@ TabCardStyle.args = {
   content: {
     "1": (
       <TeamLeaderCard
-        highlightedStat={teamLeaderData.passYds}
+        highlightedStat={{
+          title: 'Passer Rating',
+          value: teamLeaderData.passerRating
+        }}
+        seasonIndex={0}
         keyStats={[
           {
             key: "passerRating",
@@ -54,10 +58,12 @@ TabCardStyle.args = {
     "2": <div>Defense</div>,
     "3": <div>Special Teams</div>,
   },
-  footer: {
-    href: "#",
-    text: "",
+  baseCardProps: {
+    footer: {
+      href: "#",
+      text: "",
+    },
+    header: 'testing',
+    contentPadding: false
   },
-  header: "testing",
-  contentPadding: false,
 };

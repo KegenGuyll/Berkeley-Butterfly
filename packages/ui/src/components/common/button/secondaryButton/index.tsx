@@ -3,7 +3,11 @@ import clsx from "clsx";
 
 type Props = HtmlHTMLAttributes<HTMLButtonElement>;
 
-const secondaryButton = ({ children, className, ...props }: Props) => {
+const secondaryButton: React.FC<Props> = ({
+  children,
+  className,
+  ...props
+}: Props) => {
   return (
     <button
       className={clsx(

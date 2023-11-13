@@ -1,38 +1,36 @@
-import getTeamRoster from '@/endpoints/team/players/getTeamRoster'
-import { setPlayers } from '@/redux/slices/activeLeague'
-import React, { useCallback } from 'react'
-import { useAppDispatch, useAppSelector } from './redux'
-
+import { useCallback } from "react";
+import getTeamRoster from "@/endpoints/team/players/getTeamRoster";
+import { setPlayers } from "@/redux/slices/activeLeague";
+import { useAppDispatch, useAppSelector } from "./redux";
 
 const usePlayers = () => {
-  const dispatch = useAppDispatch()
-  const { players, stats, leagueId, } = useAppSelector((state) => state.activeLeague)
+  const dispatch = useAppDispatch();
+  const { players, leagueId } = useAppSelector((state) => state.activeLeague);
 
+  const findPlayerByTeam = useCallback(
+    (teamId: number) => {
+      if (!leagueId) return [];
 
-  const findPlayerByTeam = useCallback((teamId: number) => {
-    if(!leagueId) return []
+      const result = Object.values(players).filter((p) => p.teamId === teamId);
 
-    const result = Object.values(players).filter((p) => p.teamId === teamId);
+      if (!result.length) {
+        getTeamRoster(leagueId, teamId).then((response) => {
+          if (response.success) {
+            dispatch(setPlayers(response.body));
+          }
+        });
 
-    if(!result.length){
-      getTeamRoster(leagueId, teamId).then((response) => {
-        if(response.success){
-          dispatch(setPlayers(response.body));
-        }
-      });
+        return [];
+      }
 
-      return []
-    }
-
-    return result
-  }, [players, leagueId])
-
-
+      return result;
+    },
+    [players, leagueId],
+  );
 
   return {
-    findPlayerByTeam
-  }
+    findPlayerByTeam,
+  };
+};
 
-}
-
-export default usePlayers
+export default usePlayers;

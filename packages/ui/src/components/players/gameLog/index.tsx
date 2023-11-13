@@ -121,7 +121,9 @@ const GameLogComponent = ({ gameLog }: Props) => {
 
   return (
     <TabCard
-      header={`${2022 + gameLog[0].seasonIndex} Games`}
+      baseCardProps={{
+        header: `${2022 + gameLog[0].seasonIndex} Games`
+      }}
       categories={data.categories}
       content={data.content}
     />

@@ -49,7 +49,9 @@ const Stats: NextPage<Props> = ({
   return (
     <div>
       <TabCard
-        divider={false}
+        baseCardProps={{
+          divider: false
+        }}
         categories={[
           {
             id: "1",

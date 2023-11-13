@@ -93,12 +93,14 @@ const TeamLanding: NextPageWithLayout<Props> = ({
                 />
               ),
             }}
-            footer={{
-              href: `${router.asPath}/stats`,
-              text: "Full Team Statistics",
+            baseCardProps={{
+              footer:{
+                href: `${router.asPath}/stats`,
+                text: "Full Team Statistics",
+              },
+              header:"Team Leaders",
+              contentPadding:false
             }}
-            header="Team Leaders"
-            contentPadding={false}
           />
         </div>
       </div>

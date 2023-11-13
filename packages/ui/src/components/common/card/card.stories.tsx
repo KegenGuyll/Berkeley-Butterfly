@@ -36,6 +36,7 @@ export const TeamLeaders = Template.bind({});
 TeamLeaders.args = {
   children: (
     <TeamLeaderCard
+      seasonIndex={0}
       highlightedStat={{
         title: "Passing Yards",
         value: teamLeaderData.passYds,

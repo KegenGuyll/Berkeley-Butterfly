@@ -11,12 +11,13 @@ export type Category = {
 
 export type Content = Record<string, React.ReactNode>;
 
-interface Props extends BaseCardProps {
+interface Props {
   categories: Category[];
   content: Content;
+  baseCardProps: BaseCardProps
 }
 
-const TabCard = memo(({ categories, content, ...props }: Props) => {
+const TabCard = memo(({ categories, content, ...baseCardProps }: Props) => {
   const [active, setActive] = useState<Category[]>([]);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const TabCard = memo(({ categories, content, ...props }: Props) => {
   };
 
   return (
-    <BaseCard {...props}>
+    <BaseCard {...baseCardProps}>
       <>
         <nav>
           <ul className="flex" role="tablist">
